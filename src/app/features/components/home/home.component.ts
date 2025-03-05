@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { blogResponse } from '../../../core/models/models';
+import { FooterComponent } from '../../../shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-home',
-  imports: [HeaderComponent,CommonModule],
+  imports: [HeaderComponent,CommonModule,FooterComponent,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

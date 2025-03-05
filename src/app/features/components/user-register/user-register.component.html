@@ -1,1 +1,266 @@
-<p>user-register works!</p>
+<app-header></app-header>
+
+<div
+  class="min-h-screen bg-[#e8e8e5] flex flex-col justify-center py-12 sm:px-2 lg:px-2"
+>
+  <!-- <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <img class="mx-auto h-10 w-auto" src="https://www.svgrepo.com/show/301692/login.svg" alt="Workflow">
+        <h2 class="mt-2 text-center text-3xl leading-9 font-extrabold text-gray-900">
+            Create a new account
+        </h2>
+        <p class="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
+            Or
+            <a (click)="login()" class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                login to your account
+            </a>
+        </p>
+    </div> -->
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="shadow-xl bg-white py-8 px-4 sm:rounded-lg sm:px-10">
+      <h1 class="text-center text-2xl font-semibold text-gray-600 pb-4">
+        Register
+      </h1>
+      <hr class="p-4" />
+      <form
+        [formGroup]="registrationForm"
+        (ngSubmit)="onSubmit()"
+        class="max-w-sm mx-auto"
+      >
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium leading-5 text-gray-700"
+            >First Name</label
+          >
+          <div class="mt-2 relative rounded-md">
+            <input
+              formControlName="firstname"
+              placeholder="first name"
+              type="text"
+              class="appearance-none block w-full px-3 py-2 border-2 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              [ngClass]="{
+                'border-red-300':
+                  registrationForm.get('firstname')?.touched &&
+                  registrationForm.get('firstname')?.invalid
+              }"
+            />
+            <div
+              *ngIf="
+                registrationForm.get('firstname')?.touched &&
+                registrationForm.get('firstname')?.invalid
+              "
+              class="text-red-500 text-xs mt-2"
+            >
+              <div
+                *ngIf="registrationForm.get('firstname')?.hasError('required')"
+              >
+                *required
+              </div>
+              <div
+                *ngIf="registrationForm.get('firstname')?.hasError('pattern')"
+              >
+                *Invalid format
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <label
+            for="email"
+            class="block text-sm font-medium leading-5 text-gray-700"
+            >Last Name</label
+          >
+          <div class="mt-2 relative rounded-md">
+            <input
+              formControlName="lastname"
+              placeholder="last name"
+              type="text"
+              class="appearance-none block w-full px-3 py-2 border-2 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              [ngClass]="{
+                'border-red-300':
+                  registrationForm.get('lastname')?.touched &&
+                  registrationForm.get('lastname')?.invalid
+              }"
+            />
+            <div
+              *ngIf="
+                registrationForm.get('lastname')?.touched &&
+                registrationForm.get('lastname')?.invalid
+              "
+              class="text-red-500 text-xs mt-2"
+            >
+              <div
+                *ngIf="registrationForm.get('lastname')?.hasError('required')"
+              >
+                *required
+              </div>
+              <div
+                *ngIf="registrationForm.get('lastname')?.hasError('pattern')"
+              >
+                *Invalid format
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <label
+            for="email"
+            class="block text-sm font-medium leading-5 text-gray-700"
+          >
+            Email address
+          </label>
+          <div class="mt-2 relative rounded-md">
+            <input
+              formControlName="email"
+              id="email"
+              name="email"
+              placeholder="user@example.com"
+              type="email"
+              class="appearance-none block w-full px-3 py-2 border-2 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              [ngClass]="{
+                'border-red-300':
+                  registrationForm.get('email')?.touched &&
+                  registrationForm.get('email')?.invalid
+              }"
+            />
+            <div
+              *ngIf="
+                registrationForm.get('email')?.touched &&
+                registrationForm.get('email')?.invalid
+              "
+              class="text-red-500 text-xs mt-2"
+            >
+              <div *ngIf="registrationForm.get('email')?.hasError('required')">
+                *required
+              </div>
+              <div *ngIf="registrationForm.get('email')?.hasError('email')">
+                *Invalid format
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <label
+            for="password"
+            class="block text-sm font-medium leading-5 text-gray-700"
+          >
+            Password
+          </label>
+          <label class="block text-xs font-small leading-5 text-gray-700"
+            >*Password should contain 8 character and should include a special
+            character, capital letter, small letter and a number</label
+          >
+          <div class="mt-2 rounded-md">
+            <input
+              formControlName="password"
+              id="password"
+              name="password"
+              type="password"
+              placeholder="password"
+              required=""
+              class="appearance-none block w-full px-3 py-2 border-2 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              [ngClass]="{
+                'border-red-300':
+                  registrationForm.get('password')?.touched &&
+                  registrationForm.get('password')?.invalid
+              }"
+            />
+            <div
+              *ngIf="
+                registrationForm.get('password')?.touched &&
+                registrationForm.get('password')?.invalid
+              "
+              class="text-red-500 text-xs mt-2"
+            >
+              <div
+                *ngIf="registrationForm.get('password')?.hasError('required')"
+              >
+                *required
+              </div>
+              <div
+                *ngIf="registrationForm.get('password')?.hasError('pattern')"
+              >
+                *Invalid format
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <label
+            for="password_confirmation"
+            class="block text-sm font-medium leading-5 text-gray-700"
+          >
+            Confirm Password
+          </label>
+          <div class="mt-2 rounded-md">
+            <input
+              formControlName="confirmPassword"
+              id="password_confirmation"
+              name="password_confirmation"
+              type="password"
+              placeholder="confirm password"
+              required=""
+              class="appearance-none block w-full px-3 py-2 border-2 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+              [ngClass]="{
+                'border-red-300':
+                  registrationForm.get('confirmPassword')?.touched &&
+                  registrationForm.get('confirmPassword')?.invalid
+              }"
+            />
+            <div
+              *ngIf="
+                registrationForm.get('confirmPassword')?.touched &&
+                registrationForm.get('confirmPassword')?.invalid
+              "
+              class="text-red-500 text-xs mt-2"
+            >
+              <div
+                *ngIf="
+                  registrationForm.get('confirmPassword')?.hasError('required')
+                "
+              >
+                *required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <span class="block w-full rounded-md">
+            <button
+              type="submit"
+              value="login"
+              id="login"
+              class="mt-6 w-full shadow-xl bg-gradient-to-tr from-blue-600 to-red-400 hover:to-red-700 text-indigo-100 py-2 rounded-md text-lg tracking-wide transition duration-1000"
+            >
+              Create account
+            </button>
+          </span>
+        </div>
+        <div class="flex justify-center items-center mt-4">
+          <p
+            class="inline-flex items-center text-gray-700 font-medium text-xs text-center"
+          >
+            <span class="ml-2"
+              >Already have an account?<a
+                (click)="login()"
+                class="text-xs ml-2 text-blue-500 font-semibold"
+                >Login now &rarr;</a
+              >
+            </span>
+          </p>
+        </div>
+      </form>
+    </div>
+    <div class="pt-6 text-base font-semibold leading-7">
+      <p class="font-sans text-red-500 text-md hover:text-red-800">
+        <a href="/" class="absolute">&larr; Home</a>
+      </p>
+    </div>
+  </div>
+</div>

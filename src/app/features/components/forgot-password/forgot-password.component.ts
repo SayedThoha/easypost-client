@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { Router } from '@angular/router';
 import { MessageToasterService } from '../../../core/services/message-toaster.service';
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [HeaderComponent, CommonModule],
+  imports: [HeaderComponent, CommonModule,ReactiveFormsModule,FormsModule],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css',
 })

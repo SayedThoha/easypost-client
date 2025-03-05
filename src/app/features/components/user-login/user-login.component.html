@@ -1,1 +1,74 @@
-<p>user-login works!</p>
+<app-header></app-header>
+
+<div class="bg-gray-100 h-screen flex items-center justify-center">
+    <!-- component -->
+    <div class="h-screen bg-[#e8e8e5] flex justify-center items-center w-full">
+        
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-xl max-w-sm">
+                <div class="space-y-4">
+                    <h1 class="text-center text-2xl font-semibold text-gray-600">Login</h1>
+                    <hr>
+                    <div class="mt-6">
+                        <label for="email" class="block text-sm font-medium leading-5 text-gray-700">
+                            Email address
+                        </label>
+                        <div class="mt-2 relative rounded-md">
+                            <input formControlName="email" id="email" name="email" placeholder="user@example.com" type="email"
+                            class="appearance-none block w-full px-3 py-2 border-2 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            [ngClass]="{ 'border-red-300': loginForm.get('email')?.touched && loginForm.get('email')?.invalid }"
+                            >
+                            <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="text-red-500 text-xs mt-2">
+                              <div *ngIf="loginForm.get('email')?.hasError('required')">*required</div>
+                              <div *ngIf="loginForm.get('email')?.hasError('email')">*Invalid format</div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="mt-6">
+                        <label for="password" class="block text-sm font-medium leading-5 text-gray-700">
+                            Password
+                        </label>
+                        <div class="mt-2 rounded-md">
+                            <input formControlName="password" id="password" name="password" type="password" placeholder="password" required=""
+                            class="appearance-none block w-full px-3 py-2 border-2 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            [ngClass]="{ 'border-red-300': loginForm.get('password')?.touched && loginForm.get('password')?.invalid }">
+                            <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-red-500 text-xs mt-2">
+                              <div *ngIf="loginForm.get('password')?.hasError('required')">*required</div>
+                              <div *ngIf="loginForm.get('password')?.hasError('minLength')">*Minimum 8 characters</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Remember Me checkbox -->
+                <div class="flex justify-center items-center mt-4">
+                    <p class="inline-flex items-center text-gray-700 font-medium text-xs text-center">
+                        <input type="checkbox" id="rememberMeCheckbox" name="rememberMe" class="mr-2">
+                        <span class="text-xs font-semibold">Remember me?</span>
+                    </p>
+                </div>
+
+                <!-- Remember Me checkbox -->
+                <div class="flex justify-center items-center mt-4">
+                    <p class="inline-flex items-center text-gray-700 font-medium text-xs text-center">
+                        <button (click)="forgetPassword()" class="text-xs text-blue-500 font-semibold">Fogot password?</button>
+                    </p>
+                </div>
+
+                <button type="submit" value="login" id="login" class="mt-6 w-full shadow-xl bg-gradient-to-tr from-blue-600 to-red-400 hover:to-red-700 text-indigo-100 py-2 rounded-md text-lg tracking-wide transition duration-1000">Login</button>
+                <hr>
+                <div class="flex justify-center items-center mt-4">
+                    <p class="inline-flex items-center text-gray-700 font-medium text-xs text-center">
+                        <span class="ml-2">You don't have an account?<button (click)="register()" class="text-xs ml-2 text-blue-500 font-semibold">Register now &rarr;</button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="pt-6 text-base font-semibold leading-7">
+                <p class="font-sans text-red-500 text-md hover:text-red-800">
+                <a href="/" class="absolute">&larr; Home</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>

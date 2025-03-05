@@ -6,6 +6,7 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { blogData, blogResponse } from '../../../core/models/models';
@@ -17,7 +18,7 @@ import { namePattern } from '../../../shared/utils/regex';
 
 @Component({
   selector: 'app-edit-blog',
-  imports: [HeaderComponent, FooterComponent, CommonModule, FormsModule],
+  imports: [HeaderComponent, FooterComponent, CommonModule, FormsModule,ReactiveFormsModule],
   templateUrl: './edit-blog.component.html',
   styleUrl: './edit-blog.component.css',
 })
