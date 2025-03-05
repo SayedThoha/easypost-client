@@ -1,0 +1,37 @@
+<!-- nav bar section -->
+<nav class="flex flex-wrap items-center justify-between p-3 bg-white">
+    <div class="text-2xl font-bold mb-6 text-center text-gray-800 bg-blue-100 px-2 border rounded-lg">EASY PUBLISH</div>
+    <div class="flex md:hidden">
+        <button (click)="toggleMenu()" class="focus:outline-none">
+            <img *ngIf="!menuOpen" src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png" width="40" height="40" />
+            <img *ngIf="menuOpen" src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png" width="40" height="40" />
+        </button>
+    </div>
+
+    <div [ngClass]="{'hidden': !menuOpen, 'block': menuOpen}" class="w-full md:w-auto md:flex text-right text-bold mt-5 md:mt-0 md:border-none">
+        <button (click)="home()" class="block md:inline-block hover:text-blue-500 px-3 py-3 md:border-none">Home</button>
+        <button (click)="blog()" class="block md:inline-block hover:text-blue-500 px-3 py-3 md:border-none">Blogs</button>
+        <ng-container *ngIf="profileStatus;">
+            <button (click)="personal_blog()" class="block md:inline-block hover:text-blue-500 px-3 py-3 md:border-none">Your Blogs</button>
+            <button (click)="add_blog()" class="block md:inline-block hover:text-blue-500 px-3 py-3 md:border-none">Add Blogs</button>
+            <button (click)="profile()" class="block md:inline-block hover:text-blue-500 px-3 py-3 md:border-none">Profile</button>
+        </ng-container>
+    </div>
+
+    <div [ngClass]="{'hidden':!menuOpen}" class=" md:flex md:w-auto px-2 py-2 md:rounded">
+        <ng-container *ngIf="profileStatus; else noProfile">
+            <button (click)="logout()">
+                <div class="flex justify-end">
+                    <div class="flex items-center h-10 w-30 rounded-md bg-[#c8a876] text-white font-medium p-2">Logout</div>
+                </div>
+            </button>
+        </ng-container>
+        <ng-template #noProfile>
+            <button (click)="login()">
+                <div class="flex justify-end">
+                    <div class="flex items-center h-10 w-30 rounded-md bg-[#c8a876] text-white font-medium p-2">Sign up</div>
+                </div>
+            </button>
+        </ng-template>
+    </div>
+</nav>
