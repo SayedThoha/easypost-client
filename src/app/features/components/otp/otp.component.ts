@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-otp',
-  imports: [HeaderComponent,ReactiveFormsModule, FormsModule,CommonModule],
+  imports: [HeaderComponent, ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './otp.component.html',
   styleUrl: './otp.component.css',
 })
@@ -26,7 +26,7 @@ export class OtpComponent implements OnInit {
   counter: number = 59;
   email!: string | null;
   newEmail!: string | null;
-
+  otpForm!: FormGroup;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -34,9 +34,9 @@ export class OtpComponent implements OnInit {
     private messageToaster: MessageToasterService
   ) {}
 
-  otpForm!: FormGroup;
   ngOnInit(): void {
     this.counterFn();
+    this.intialiseForms();
     this.email = localStorage.getItem('email');
     this.newEmail = localStorage.getItem('new_email');
     console.log('newEmail', this.newEmail);
@@ -46,6 +46,7 @@ export class OtpComponent implements OnInit {
       otp: ['', [Validators.required, Validators.pattern(otpPattern)]],
     });
   }
+
   counterFn() {
     this.timerInterval = setInterval(() => {
       this.counter--;
@@ -129,4 +130,5 @@ export class OtpComponent implements OnInit {
       },
     });
   }
+
 }

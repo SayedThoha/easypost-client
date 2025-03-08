@@ -20,7 +20,7 @@ export class ImageUploadService {
 
     return this.http.post<{ url: string }>(this._cloudinaryUrl, formData).pipe(
       map((response) => {
-        // console.log('response:', response, response.url);
+        console.log('response:', response, response.url);
         return response.url;
       }),
       catchError((error) => {

@@ -30,6 +30,7 @@ export class NewPasswordComponent implements OnInit {
   ) {}
   email!: string | null;
   passwordForm!: FormGroup;
+
   ngOnInit(): void {
     this.email = localStorage.getItem('email');
     this.initialiseForms();

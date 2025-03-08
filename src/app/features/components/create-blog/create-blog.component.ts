@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { UserService } from '../../../core/services/user.service';
 import { ImageUploadService } from '../../../core/services/image-upload.service';
@@ -12,13 +18,17 @@ import { namePattern } from '../../../shared/utils/regex';
 
 @Component({
   selector: 'app-create-blog',
-  imports: [HeaderComponent,CommonModule,FormsModule,FooterComponent,ReactiveFormsModule],
+  imports: [
+    HeaderComponent,
+    CommonModule,
+    FormsModule,
+    FooterComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './create-blog.component.html',
-  styleUrl: './create-blog.component.css'
+  styleUrl: './create-blog.component.css',
 })
-
 export class CreateBlogComponent implements OnInit {
-
   blogForm!: FormGroup;
   topics: string[] = ['Technology', 'Travel', 'Food', 'Lifestyle', 'Other'];
   selectedFile: File | null = null;
@@ -26,19 +36,19 @@ export class CreateBlogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService:UserService,
-    private uploadService:ImageUploadService,
-    private router:Router,
-    private messageToaster:MessageToasterService
+    private userService: UserService,
+    private uploadService: ImageUploadService,
+    private router: Router,
+    private messageToaster: MessageToasterService
   ) {}
 
   ngOnInit() {
     this.blogForm = this.fb.group({
       topic: ['', Validators.required],
       otherTopic: [''],
-      title: ['', Validators.required,Validators.minLength(5)],
+      title: ['', Validators.required, Validators.minLength(5)],
       content: ['', Validators.required],
-      image: ['',Validators.required]
+      image: ['', Validators.required],
     });
   }
 
@@ -47,7 +57,10 @@ export class CreateBlogComponent implements OnInit {
     const otherTopicControl = this.blogForm.get('otherTopic');
 
     if (topicControl?.value === 'Other') {
-      otherTopicControl?.setValidators([Validators.required,Validators.pattern(namePattern)]);
+      otherTopicControl?.setValidators([
+        Validators.required,
+        Validators.pattern(namePattern),
+      ]);
     } else {
       otherTopicControl?.clearValidators();
     }
@@ -88,43 +101,42 @@ export class CreateBlogComponent implements OnInit {
     if (this.selectedFile) {
       this.uploadService.uploadImage(this.selectedFile, 'EasyPost').subscribe({
         next: (response) => {
-          const image= response; 
+          const image = response;
           console.log(image);
-          
-          const blogData:blogData = {
-            userId:localStorage.getItem('accessedUser'),
+
+          const blogData: blogData = {
+            userId: localStorage.getItem('accessedUser'),
             topic: this.blogForm.get('topic')?.value,
             otherTopic: this.blogForm.get('otherTopic')?.value || '',
             title: this.blogForm.get('title')?.value,
             content: this.blogForm.get('content')?.value,
-            image 
+            image,
           };
 
           this.userService.createBlog(blogData).subscribe({
             next: (response) => {
               console.log('Blog created successfully:', response);
-              this.messageToaster.showSuccessToastr(response.message)
-              this.router.navigate(['personal_blog'])
+              this.messageToaster.showSuccessToastr(response.message);
+              this.router.navigate(['personal_blog']);
             },
             error: (error) => {
               console.error('Error creating blog:', error);
-            }
+            },
           });
         },
         error: (error) => {
           console.error('Error uploading image:', error);
-        }
+        },
       });
     }
   }
-  
+
   markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
+    Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
       }
     });
   }
-
 }

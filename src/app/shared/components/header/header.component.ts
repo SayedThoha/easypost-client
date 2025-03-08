@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageToasterService } from '../../../core/services/message-toaster.service';
 @Component({
   selector: 'app-header',
   imports: [CommonModule, FormsModule],
@@ -12,7 +13,10 @@ export class HeaderComponent implements OnInit {
   userToken!: string | null;
   menuOpen = false;
   profileStatus: boolean = false;
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private showMessage: MessageToasterService
+  ) {}
 
   ngOnInit(): void {
     this.userToken = localStorage.getItem('accessToken');
@@ -41,7 +45,7 @@ export class HeaderComponent implements OnInit {
   }
 
   add_blog() {
-    this.router.navigate(['create_blog']);
+    this.router.navigate(['/create_blog']);
   }
 
   profile() {
@@ -51,6 +55,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('accessedUser');
+    this.showMessage.showWarningToastr('Logout successfully');
     this.profileStatus = false;
     this.router.navigate(['home']);
   }

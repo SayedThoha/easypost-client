@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { profileData, userDetails } from '../../../core/models/models';
@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { ImageUploadService } from '../../../core/services/image-upload.service';
 import { namePattern } from '../../../shared/utils/regex';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -23,32 +24,35 @@ import { CommonModule } from '@angular/common';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
-  userDetails!: userDetails;
-  userId!: string | null;
-  emailEdit: boolean = false;
+  user_profile_data: any = { firstname: '', lastname: '' };
+  userId!: any;
+  email_edit: boolean = false;
   name_edit: boolean = false;
-  url!: string | null | undefined;
+  url: any = null;
   imagePath!: any;
-  // profile_pic_event!:Event;
-  originalNameForm!: { firstname: string | null; lastname: string | null };
-  originalEmailForm!: { email: string | null };
+  profile_pic_event!: Event;
+
   edit_profile_picture!: FormGroup;
-  nameForm!: FormGroup;
-  emailForm!: FormGroup;
+  name_form!: FormGroup;
+  email_form!: FormGroup;
+
+  profileDataSubscription!: Subscription;
+
   constructor(
     private userService: UserService,
-    private messageService: MessageToasterService,
+    private showMessage: MessageToasterService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private uploadService: ImageUploadService
+    private uploadService: ImageUploadService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.profileData();
-    this.initialiseForms();
-    this.nameForm.get('firstname')?.disable();
-    this.nameForm.get('lastname')?.disable();
-    this.emailForm.get('email')?.disable();
+    this.initializeForms();
+    this.name_form.get('firstname')?.disable();
+    this.name_form.get('lastname')?.disable();
+    this.email_form.get('email')?.disable();
   }
 
   selectedFile: File | null = null;
@@ -70,29 +74,27 @@ export class ProfileComponent implements OnInit {
   uploadImage() {
     if (this.selectedFile) {
       console.log('upload file in ts,before service call');
-      this.uploadService
-        .uploadImage(this.selectedFile, 'medilink24')
-        .subscribe({
-          next: (response) => {
-            const image = response;
-            console.log('Image uploaded successfully:', image);
-            this.url = image;
-            const userId = localStorage.getItem('accessedUser');
-            if (userId) {
-              const profileData: profileData = {
-                _id: userId,
-                profilePicture: image,
-              };
-              console.log('userId in profile page:', profileData._id);
+      this.uploadService.uploadImage(this.selectedFile, 'EasyPost').subscribe({
+        next: (response) => {
+          const image = response;
+          console.log('Image uploaded successfully:', image);
+          this.url = image;
+          const userId = localStorage.getItem('accessedUser');
+          if (userId) {
+            const profileData: profileData = {
+              _id: userId,
+              profilePicture: image,
+            };
+            console.log('userId in profile page:', profileData._id);
 
-              this.upload_image_to_server(profileData);
-            }
-          },
-          error: (error) => {
-            console.error('Error uploading image:', error);
-            this.messageService.showErrorToastr(error.error);
-          },
-        });
+            this.upload_image_to_server(profileData);
+          }
+        },
+        error: (error) => {
+          console.error('Error uploading image:', error);
+          this.showMessage.showErrorToastr(error.error);
+        },
+      });
     }
   }
 
@@ -101,10 +103,10 @@ export class ProfileComponent implements OnInit {
       next: (Response) => {
         // this.userDetails.profilePicture=profileData.profilePicture
         // this.url=profileData.profilePicture
-        this.messageService.showSuccessToastr(Response.message);
+        this.showMessage.showSuccessToastr(Response.message);
       },
       error: (error) => {
-        this.messageService.showErrorToastr(error.error);
+        this.showMessage.showErrorToastr(error.error);
       },
     });
   }
@@ -117,125 +119,133 @@ export class ProfileComponent implements OnInit {
       fileInput.click();
     }
   }
-  initialiseForms() {
+
+  private initializeForms(): void {
     this.edit_profile_picture = this.formBuilder.group({
       profile_picture: [null, Validators.required],
     });
 
-    this.nameForm = this.formBuilder.group({
+    this.name_form = this.formBuilder.group({
       firstname: [
-        '',
+        this.user_profile_data.firstname,
         [
           Validators.required,
-          Validators.maxLength(20),
+          Validators.maxLength(50),
           Validators.pattern(namePattern),
         ],
       ],
       lastname: [
-        '',
+        this.user_profile_data.lastname,
         [
           Validators.required,
-          Validators.maxLength(20),
+          Validators.maxLength(50),
           Validators.pattern(namePattern),
         ],
       ],
     });
 
-    this.emailForm = this.formBuilder.group({
+    this.email_form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     });
   }
 
-  closeName() {
-    this.nameForm.patchValue({
-      firstname: this.userDetails.firstname,
-      lastname: this.userDetails.lastname,
+  close_name() {
+    // console.log('close_name called', this.name_edit)
+
+    this.name_form.patchValue({
+      firstname: this.user_profile_data.firstname,
+      lastname: this.user_profile_data.lastname,
     });
     this.name_edit = !this.name_edit;
     if (this.name_edit) {
-      this.nameForm.get('firstname')?.enable();
-      this.nameForm.get('lastname')?.enable();
+      this.name_form.get('firstname')?.enable();
+      this.name_form.get('lastname')?.enable();
     } else {
-      this.nameForm.get('firstname')?.disable();
-      this.nameForm.get('lastname')?.disable();
+      this.name_form.get('firstname')?.disable();
+      this.name_form.get('lastname')?.disable();
     }
   }
 
   close_email() {
-    this.emailForm.patchValue({
-      email: this.userDetails.email,
+    this.email_form.patchValue({
+      email: this.user_profile_data.email,
     });
-    this.emailEdit = !this.emailEdit;
+    this.email_edit = !this.email_edit;
 
-    if (this.emailEdit) {
-      this.emailForm.get('email')?.enable();
+    if (this.email_edit) {
+      this.email_form.get('email')?.enable();
     } else {
-      this.emailForm.get('email')?.disable();
+      this.email_form.get('email')?.disable();
     }
   }
 
-  submitName() {
-    console.log('edit profile submitted');
-    if (this.nameForm.invalid) {
-      console.log('Form is invalid');
-      this.markFormGroupTouched(this.nameForm);
+  submit_name() {
+    // console.log('edit profile submitted');
+    if (this.name_form.invalid) {
+      // console.log('Form is invalid');
+      this.markFormGroupTouched(this.name_form);
       return;
     } else {
       if (
-        this.nameForm.value.firstname === this.userDetails.firstname &&
-        this.nameForm.value.lastname === this.userDetails.lastname
+        this.name_form.value.firstname === this.user_profile_data.firstname &&
+        this.name_form.value.lastname === this.user_profile_data.lastname
       ) {
-        this.closeName();
+        this.close_name();
         return;
       }
-      const data: userDetails = {
+      const data = {
         _id: this.userId || undefined,
-        firstname: this.nameForm.get('firstname')?.value || undefined,
-        lastname: this.nameForm.get('lastname')?.value || undefined,
+        firstname: this.name_form.value.firstname,
+        lastname: this.name_form.value.lastname,
+        email: this.user_profile_data.email,
       };
       this.userService.editUserName(data).subscribe({
         next: (response) => {
-          this.messageService.showSuccessToastr(response.message);
-          this.userDetails.firstname = data.firstname;
-          this.userDetails.lastname = data.lastname;
-          this.closeName();
+          // console.log('Success response:', response);
+          this.showMessage.showSuccessToastr(response.message);
+          this.user_profile_data.firstname = data.firstname;
+          this.user_profile_data.lastname = data.lastname;
+          this.close_name();
         },
         error: (error) => {
           console.log('Error response:', error);
-          this.messageService.showErrorToastr(error.error.message);
-          this.closeName();
+          this.showMessage.showErrorToastr(error.error.message);
+          this.close_name();
         },
       });
     }
   }
 
-  submitEmail() {
-    console.log('edit profile submitted');
-    if (this.emailForm.invalid) {
-      console.log('Form is invalid');
-      this.markFormGroupTouched(this.emailForm);
+  submit_email() {
+    // console.log('edit profile submitted');
+    if (this.email_form.invalid) {
+      // console.log('Form is invalid');
+      this.markFormGroupTouched(this.email_form);
       return;
     } else {
-      if (this.emailForm.value.email === this.userDetails.email) {
+      if (this.email_form.value.email === this.user_profile_data.email) {
         this.close_email();
         return;
       }
-      const data: userDetails = {
-        _id: this.userId || undefined,
-        email: this.emailForm.get('email')?.value || undefined,
+      const data = {
+        _id: this.userId,
+        email: this.email_form.value.email,
       };
+      console.log(data)
       this.userService.editUserEmail(data).subscribe({
         next: (Response) => {
-          this.messageService.showSuccessToastr(Response.message);
-          if (data.email && this.userDetails.email) {
-            localStorage.setItem('email', this.userDetails.email);
+          this.showMessage.showSuccessToastr(
+            Response.message || 'Email update OTP sent successfully.'
+          );
+          if (data.email && this.user_profile_data.email) {
+            localStorage.setItem('email', this.user_profile_data.email);
             localStorage.setItem('new_email', data.email);
             localStorage.setItem('role', 'user_new_email');
           }
           this.router.navigate(['otp']);
         },
         error: (error) => {
-          this.messageService.showErrorToastr(error.error.message);
+          this.showMessage.showErrorToastr(error.error.message);
         },
       });
     }
@@ -252,43 +262,26 @@ export class ProfileComponent implements OnInit {
 
   profileData() {
     this.userId = localStorage.getItem('accessedUser');
-    if (this.userId)
-      this.userService.userDetails(this.userId).subscribe({
-        next: (Response) => {
-          console.log('Response:', Response);
+    // console.log("this.userid",this.userId)
 
-          this.userDetails = Response;
-          this.url = Response.profilePicture;
-          console.log(this.url);
-
-          this.nameForm.patchValue({
-            firstname: this.userDetails.firstname,
-            lastname: this.userDetails.lastname,
+    this.profileDataSubscription = this.userService
+      .userDetails(this.userId)
+      .subscribe({
+        next: (response) => {
+          // console.log(response)
+          this.user_profile_data = response;
+          this.url = this.user_profile_data.profilePicture;
+          this.name_form.patchValue({
+            firstname: this.user_profile_data.firstname,
+            lastname: this.user_profile_data.lastname,
           });
-          this.emailForm.patchValue({
-            email: this.userDetails.email,
+          this.email_form.patchValue({
+            email: this.user_profile_data.email,
           });
-          this.originalNameForm = this.nameForm.getRawValue();
-          this.originalEmailForm = this.emailForm.getRawValue();
         },
-        error: (Error) => {
-          this.messageService.showErrorToastr(Error.error);
+        error: (error) => {
+          this.showMessage.showErrorToastr('Error in fetching profile data');
         },
       });
-  }
-
-  // Function to compare form values with the original data
-  areNameFormValuesUnchanged(): boolean {
-    const currentFormData = this.nameForm.getRawValue();
-    return (
-      JSON.stringify(this.originalNameForm) === JSON.stringify(currentFormData)
-    );
-  }
-
-  areEmailFormValuesUnchanged(): boolean {
-    const currentFormData = this.emailForm.getRawValue();
-    return (
-      JSON.stringify(this.originalEmailForm) === JSON.stringify(currentFormData)
-    );
   }
 }
