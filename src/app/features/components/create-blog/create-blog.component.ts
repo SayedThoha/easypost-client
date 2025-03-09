@@ -81,11 +81,9 @@ export class CreateBlogComponent implements OnInit {
 
   previewImage() {
     if (this.selectedFile) {
-      console.log(this.selectedFile);
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result;
-        console.log(this.imagePreview);
       };
       reader.readAsDataURL(this.selectedFile);
     }
@@ -102,7 +100,6 @@ export class CreateBlogComponent implements OnInit {
       this.uploadService.uploadImage(this.selectedFile, 'EasyPost').subscribe({
         next: (response) => {
           const image = response;
-          console.log(image);
 
           const blogData: blogData = {
             userId: localStorage.getItem('accessedUser'),
@@ -115,7 +112,6 @@ export class CreateBlogComponent implements OnInit {
 
           this.userService.createBlog(blogData).subscribe({
             next: (response) => {
-              console.log('Blog created successfully:', response);
               this.messageToaster.showSuccessToastr(response.message);
               this.router.navigate(['personal_blog']);
             },

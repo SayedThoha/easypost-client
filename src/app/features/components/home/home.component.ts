@@ -8,57 +8,54 @@ import { FooterComponent } from '../../../shared/components/footer/footer.compon
 
 @Component({
   selector: 'app-home',
-  imports: [HeaderComponent,CommonModule,FooterComponent,],
+  imports: [HeaderComponent, CommonModule, FooterComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    private router:Router,
-    private userService:UserService,
+  constructor(private router: Router, private userService: UserService) {}
 
-  ){}
-
-  blogs!:blogResponse[]
+  blogs!: blogResponse[];
   ngOnInit(): void {
-    console.log(localStorage.getItem('email'),localStorage.getItem('newEmail'));
     
-    this.userService.AllBlogs().subscribe({
-      next:(Response)=>{
-        this.blogs = Response.slice(0, 6);
-      }
-    })
-  }
-  
+    console.log(
+      localStorage.getItem('email'),
+      localStorage.getItem('newEmail')
+    );
 
-  addBlogs(){
+    this.userService.AllBlogs().subscribe({
+      next: (Response) => {
+        this.blogs = Response.slice(0, 6);
+      },
+    });
+  }
+
+  addBlogs() {
     const currentRoute = this.router.url;
 
     if (currentRoute !== '/create_blog') {
-        this.router.navigate(['create_blog']).catch(error => {
-            console.error('Navigation error:', error);
-        });
+      this.router.navigate(['create_blog']).catch((error) => {
+        console.error('Navigation error:', error);
+      });
     } else {
-        console.log('Already on create_blog page, no navigation needed.');
+      console.log('Already on create_blog page, no navigation needed.');
     }
   }
 
-  moreBlogs(){
-    this.router.navigate(['all_blog'])
+  moreBlogs() {
+    this.router.navigate(['all_blog']);
   }
 
-  displayBlog(blogId:string){
-    this.router.navigate(['display_blog',blogId])
+  displayBlog(blogId: string) {
+    this.router.navigate(['display_blog', blogId]);
   }
 
   // Function to truncate content to the first 15 words
   getTruncatedContent(content: string): string {
     const words = content.split(' ');
     if (words.length > 15) {
-        return words.slice(0, 15).join(' ');
+      return words.slice(0, 15).join(' ');
     }
     return content;
   }
-
-  
 }

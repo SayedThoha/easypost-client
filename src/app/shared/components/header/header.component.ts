@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('accessedUser');
-    this.showMessage.showWarningToastr('Logout successfully');
+    this.showMessage.showSuccessToastr('Logout successfully');
     this.profileStatus = false;
     this.router.navigate(['home']);
   }

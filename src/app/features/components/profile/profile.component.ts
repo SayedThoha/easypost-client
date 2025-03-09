@@ -31,7 +31,6 @@ export class ProfileComponent implements OnInit {
   url: any = null;
   imagePath!: any;
   profile_pic_event!: Event;
-
   edit_profile_picture!: FormGroup;
   name_form!: FormGroup;
   email_form!: FormGroup;
@@ -73,11 +72,10 @@ export class ProfileComponent implements OnInit {
 
   uploadImage() {
     if (this.selectedFile) {
-      console.log('upload file in ts,before service call');
       this.uploadService.uploadImage(this.selectedFile, 'EasyPost').subscribe({
         next: (response) => {
           const image = response;
-          console.log('Image uploaded successfully:', image);
+
           this.url = image;
           const userId = localStorage.getItem('accessedUser');
           if (userId) {
@@ -85,7 +83,6 @@ export class ProfileComponent implements OnInit {
               _id: userId,
               profilePicture: image,
             };
-            console.log('userId in profile page:', profileData._id);
 
             this.upload_image_to_server(profileData);
           }
@@ -101,8 +98,6 @@ export class ProfileComponent implements OnInit {
   upload_image_to_server(profileData: profileData) {
     this.userService.changeProfilePicture(profileData).subscribe({
       next: (Response) => {
-        // this.userDetails.profilePicture=profileData.profilePicture
-        // this.url=profileData.profilePicture
         this.showMessage.showSuccessToastr(Response.message);
       },
       error: (error) => {
@@ -150,8 +145,6 @@ export class ProfileComponent implements OnInit {
   }
 
   close_name() {
-    // console.log('close_name called', this.name_edit)
-
     this.name_form.patchValue({
       firstname: this.user_profile_data.firstname,
       lastname: this.user_profile_data.lastname,
@@ -180,9 +173,7 @@ export class ProfileComponent implements OnInit {
   }
 
   submit_name() {
-    // console.log('edit profile submitted');
     if (this.name_form.invalid) {
-      // console.log('Form is invalid');
       this.markFormGroupTouched(this.name_form);
       return;
     } else {
@@ -201,7 +192,6 @@ export class ProfileComponent implements OnInit {
       };
       this.userService.editUserName(data).subscribe({
         next: (response) => {
-          // console.log('Success response:', response);
           this.showMessage.showSuccessToastr(response.message);
           this.user_profile_data.firstname = data.firstname;
           this.user_profile_data.lastname = data.lastname;
@@ -217,9 +207,7 @@ export class ProfileComponent implements OnInit {
   }
 
   submit_email() {
-    // console.log('edit profile submitted');
     if (this.email_form.invalid) {
-      // console.log('Form is invalid');
       this.markFormGroupTouched(this.email_form);
       return;
     } else {
@@ -231,7 +219,7 @@ export class ProfileComponent implements OnInit {
         _id: this.userId,
         email: this.email_form.value.email,
       };
-      console.log(data)
+
       this.userService.editUserEmail(data).subscribe({
         next: (Response) => {
           this.showMessage.showSuccessToastr(
@@ -262,13 +250,11 @@ export class ProfileComponent implements OnInit {
 
   profileData() {
     this.userId = localStorage.getItem('accessedUser');
-    // console.log("this.userid",this.userId)
 
     this.profileDataSubscription = this.userService
       .userDetails(this.userId)
       .subscribe({
         next: (response) => {
-          // console.log(response)
           this.user_profile_data = response;
           this.url = this.user_profile_data.profilePicture;
           this.name_form.patchValue({

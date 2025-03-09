@@ -18,7 +18,13 @@ import { namePattern } from '../../../shared/utils/regex';
 
 @Component({
   selector: 'app-edit-blog',
-  imports: [HeaderComponent, FooterComponent, CommonModule, FormsModule,ReactiveFormsModule],
+  imports: [
+    HeaderComponent,
+    FooterComponent,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './edit-blog.component.html',
   styleUrl: './edit-blog.component.css',
 })
@@ -41,10 +47,9 @@ export class EditBlogComponent implements OnInit {
   imagePreview: string | ArrayBuffer | null = null;
 
   ngOnInit(): void {
-    console.log('edit blog');
     this.route.params.subscribe((params) => {
-      this.blogId = params['id']; 
-      this.getBlogDetails(this.blogId); 
+      this.blogId = params['id'];
+      this.getBlogDetails(this.blogId);
     });
     this.editBlogForm();
   }
@@ -66,7 +71,6 @@ export class EditBlogComponent implements OnInit {
     }
     if (!this.selectedFile) {
       if (this.areFormValuesUnchanged()) {
-        console.log('No changes made. Skipping backend call.');
         this.messageService.showWarningToastr(
           'No changes detected. The blog remains unchanged.'
         );
@@ -89,9 +93,7 @@ export class EditBlogComponent implements OnInit {
       this.uploadService.uploadImage(this.selectedFile, 'EasyPost').subscribe({
         next: (response) => {
           const image = response;
-          console.log('Image uploaded successfully:', image);
           blogData.image = image;
-          console.log('image from blogData:', blogData.image);
           this.submitEditBlog(blogData);
         },
         error: (error) => {
@@ -107,7 +109,7 @@ export class EditBlogComponent implements OnInit {
   submitEditBlog(blogData: blogData) {
     this.userService.editBlog(blogData).subscribe({
       next: (response) => {
-        console.log('Blog edited successfully:', response);
+        
         this.messageService.showSuccessToastr(response.message);
         this.router.navigate(['display_blog', this.blogId]);
       },
@@ -155,11 +157,12 @@ export class EditBlogComponent implements OnInit {
 
   previewImage() {
     if (this.selectedFile) {
-      console.log(this.selectedFile);
+      
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result;
-        console.log(this.imagePreview);
+        
+
       };
       reader.readAsDataURL(this.selectedFile);
     }
@@ -173,7 +176,7 @@ export class EditBlogComponent implements OnInit {
         if (this.blogDetails.image) {
           this.imagePreview = this.blogDetails.image;
         }
-        console.log(Response.topic);
+        
 
         if (!this.topics.includes(this.blogDetails.topic)) {
           this.blogForm.patchValue({
@@ -203,12 +206,9 @@ export class EditBlogComponent implements OnInit {
   // Function to compare form values with the original data
   areFormValuesUnchanged(): boolean {
     const currentFormData = this.blogForm.getRawValue();
-    console.log('raw value of form:', this.blogForm.getRawValue());
-    console.log('original value:', this.originalFormData);
-
+   
     return (
       JSON.stringify(this.originalFormData) === JSON.stringify(currentFormData)
     );
   }
 }
-

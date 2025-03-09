@@ -24,7 +24,7 @@ export class AllBlogsComponent implements OnInit {
   blogs!: blogResponse[];
 
   addBlogs() {
-    this.router.navigate(['create_blogs']);
+    this.router.navigate(['/create_blogs']);
   }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class AllBlogsComponent implements OnInit {
   }
 
   displayBlog(blogId: string) {
-    this.router.navigate(['display_blog', blogId]);
+    this.router.navigate(['/display_blog', blogId]);
   }
 
   // Function to truncate content to the first 15 words

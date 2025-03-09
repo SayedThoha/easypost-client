@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-personal-blog',
-  imports: [HeaderComponent, FooterComponent,CommonModule,FormsModule],
+  imports: [HeaderComponent, FooterComponent, CommonModule, FormsModule],
   templateUrl: './personal-blog.component.html',
   styleUrl: './personal-blog.component.css',
 })
@@ -29,7 +29,6 @@ export class PersonalBlogComponent implements OnInit {
     this.personalBlogs(this.userId);
   }
 
-  // Function to truncate content to the first 15 words
   getTruncatedContent(content: string): string {
     const words = content.split(' ');
     if (words.length > 15) {
@@ -39,7 +38,6 @@ export class PersonalBlogComponent implements OnInit {
   }
 
   displayBlog(blogId: any) {
-    console.log('display blog:', blogId);
     this.router.navigate(['display_blog', blogId]);
   }
   addBlogs() {
@@ -54,8 +52,6 @@ export class PersonalBlogComponent implements OnInit {
       this.userService.PersonalBlogs(userId).subscribe({
         next: (Response) => {
           this.blogs = Response;
-          console.log(Response);
-          // this._messageToaster.showSuccessToastr(Response.message)
         },
       });
     } else {

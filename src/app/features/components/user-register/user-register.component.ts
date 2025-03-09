@@ -48,7 +48,7 @@ export class UserRegisterComponent implements OnInit {
       this.markFormGroupTouched(this.registrationForm);
       return;
     } else {
-      console.log('form submitted');
+      
       if (
         (this.registrationForm.get('password')?.value as string) !==
         (this.registrationForm.get('confirmPassword')?.value as string)
@@ -63,7 +63,7 @@ export class UserRegisterComponent implements OnInit {
         };
         this.userService.userregister(data).subscribe({
           next: (Response) => {
-            console.log('userregistered', Response);
+            
             localStorage.setItem(
               'email',
               this.registrationForm.get('email')?.value

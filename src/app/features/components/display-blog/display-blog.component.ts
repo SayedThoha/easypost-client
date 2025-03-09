@@ -32,25 +32,22 @@ export class DisplayBlogComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.viewportScroller.scrollToPosition([0, 0]);
-        
       }
     });
     this.userId = localStorage.getItem('accessedUser');
     this.route.params.subscribe((params) => {
       this.blogId = params['_id'];
-      this.getBlogDetails(this.blogId); 
+      this.getBlogDetails(this.blogId);
     });
   }
 
   editBlog(blogId: string) {
-    console.log(blogId);
     this.router.navigate(['edit_blog', blogId]);
   }
 
   deleteBlog(blogId: string) {
     this.userService.deleteBlog(blogId).subscribe({
       next: (Response) => {
-        console.log('blog deleted');
         this.messageService.showSuccessToastr(Response.message);
         this.router.navigate(['personal_blog']);
       },
@@ -72,7 +69,6 @@ export class DisplayBlogComponent implements OnInit {
         if (this.blogDetails.userId._id === this.userId) {
           this.edit = true;
         }
-        
       },
       error: (error) => {
         this.messageService.showErrorToastr(error.error);

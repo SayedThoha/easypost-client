@@ -1,168 +1,258 @@
 <app-header></app-header>
 <!-- hero seciton -->
 <div class="relative w-full h-[320px]" id="home">
-    <div class="absolute inset-0 opacity-70">
-        <img src="/assets/images/home.png" alt="Background Image" class="object-cover object-center w-full h-full" />
+  <div class="absolute inset-0 opacity-70">
+    <img
+      src="/assets/images/home.png"
+      alt="Background Image"
+      class="object-cover object-center w-full h-full"
+    />
+  </div>
+  <div
+    class="absolute inset-9 flex flex-col md:flex-row items-center justify-between"
+  >
+    <div class="md:w-1/2 mb-4 md:mb-0">
+      <h1
+        class="text-grey-700 font-medium text-4xl md:text-5xl leading-tight mb-2"
+      >
+        Easy Publish
+      </h1>
+
+      <p class="font-regular text-xl mb-8 mt-4">
+        In every word, a world unfolds – your stories, your voice, your journey.
+        Welcome to the place where ideas come alive.
+      </p>
+      <button
+        (click)="addBlogs()"
+        class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200"
+      >
+        Create your own blog
+      </button>
     </div>
-    <div class="absolute inset-9 flex flex-col md:flex-row items-center justify-between">
-        <div class="md:w-1/2 mb-4 md:mb-0">
-            <h1 class="text-grey-700 font-medium text-4xl md:text-5xl leading-tight mb-2">Easy Publish</h1>
-            <!-- <p>{{value|custom}}</p> -->
-            <!-- <input [(ngModel)]="name" placeholder="type your name">
-            <p>{{name}}</p> -->
-            <!-- <app-all-blogs (notify)="onNotify()"></app-all-blogs> -->
-             
-             
-             <p class="font-regular text-xl mb-8 mt-4">In every word, a world unfolds – your stories, your voice, your journey. 
-                 Welcome to the place where ideas come alive.</p>
-                 <button (click)="addBlogs()"
-                 class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858]  transition duration-200">Create your own blog</button>
-        </div>
-    </div>
+  </div>
 </div>
-        
-        <!-- our services section -->
-        <section class="py-10" id="services">
-            <div class="container mx-auto px-4">
-                <ng-container *ngIf="blogs?.length === 0; else your_blogs">
-                    <div class="flex flex-col items-center">
-                      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
-                        There are no blogs yet.
-                      </h2>
-                      <button (click)="addBlogs()"
-                        class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200">
-                        Be the first one
-                      </button>
-                    </div>
-                  </ng-container>
-                  
-                  <!-- Correct placement of the 'else' block with ng-template -->
-                  <ng-template #your_blogs>
-                    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Our Blogs</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      <div *ngFor="let blog of blogs" class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img (click)="displayBlog(blog._id)" [src]="blog.image" alt="wheat flour grinding" class="w-full h-64 object-cover">
-                        <div class="p-6 text-center">
-                          <button (click)="displayBlog(blog._id)" class="text-xl font-medium text-gray-800 mb-2">{{ blog.title }}</button>
-                          <h6>Author: {{ (blog.userId.firstname | titlecase) }} {{ (blog.userId.lastname | titlecase) }}</h6>
-                          <details>
-                            <summary>Read More</summary>
-                            {{ getTruncatedContent(blog.content) }}...
-                            <button class="text-blue-600 underline" (click)="displayBlog(blog._id)">Read More</button>
-                          </details>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-template>
-                  
-            </div>
-        
-        
-            <!-- Center the More Blogs button -->
-            <div class="flex justify-center mt-8">
-                <button (click)="moreBlogs()" type="button"
-                class="flex items-center text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-                More Blogs
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-                </button>
-            </div>
-        </section>
+
+<!-- our services section -->
+<section class="py-10" id="services">
+  <div class="container mx-auto px-4">
+    <ng-container *ngIf="blogs?.length === 0; else your_blogs">
+      <div class="flex flex-col items-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+          There are no blogs yet.
+        </h2>
+        <button
+          (click)="addBlogs()"
+          class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200"
+        >
+          Be the first one
+        </button>
+      </div>
+    </ng-container>
+
+    <!-- Correct placement of the 'else' block with ng-template -->
+    <ng-template #your_blogs>
+      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+        Our Blogs
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          *ngFor="let blog of blogs"
+          class="bg-white rounded-lg shadow-md overflow-hidden"
+        >
+          <img
+            (click)="displayBlog(blog._id)"
+            [src]="blog.image"
+            alt="wheat flour grinding"
+            class="w-full h-64 object-cover"
+          />
+          <div class="p-6 text-center">
+            <button
+              (click)="displayBlog(blog._id)"
+              class="text-xl font-medium text-gray-800 mb-2"
+            >
+              {{ blog.title }}
+            </button>
+            <h6>
+              Author: {{ blog.userId.firstname | titlecase }}
+              {{ blog.userId.lastname | titlecase }}
+            </h6>
+            <details>
+              <summary>Read More</summary>
+              {{ getTruncatedContent(blog.content) }}...
+              <button
+                class="text-blue-600 underline"
+                (click)="displayBlog(blog._id)"
+              >
+                Read More
+              </button>
+            </details>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Center the More Blogs button -->
+  <div class="flex justify-center mt-8">
+    <button
+      (click)="moreBlogs()"
+      type="button"
+      class="flex items-center text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+    >
+      More Blogs
+      <svg
+        class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 14 10"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 5h12m0 0L9 1m4 4L9 9"
+        />
+      </svg>
+    </button>
+  </div>
+</section>
 
 <!-- about us -->
 <section class="bg-gray-100" id="aboutus">
-    <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
-            <div class="max-w-lg">
-                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">About Us</h2>
-                <p class="mt-4 text-gray-600 text-lg">
-                    Welcome to <b>Easy Post</b>, your go-to platform for effortlessly creating, sharing, and exploring 
-                    a wide range of blogs! Whether you’re an experienced writer or someone who’s just looking to share 
-                    your thoughts and ideas, Easy Post offers a simple and intuitive space to bring your content to 
-                    life. We believe that everyone has a unique story to tell, and with our user-friendly platform, 
-                    you can easily create, edit, and publish blogs that reach a wide audience.<br><br>
+  <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+      <div class="max-w-lg">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+          About Us
+        </h2>
+        <p class="mt-4 text-gray-600 text-lg">
+          Welcome to <b>Easy Post</b>, your go-to platform for effortlessly
+          creating, sharing, and exploring a wide range of blogs! Whether you’re
+          an experienced writer or someone who’s just looking to share your
+          thoughts and ideas, Easy Post offers a simple and intuitive space to
+          bring your content to life. We believe that everyone has a unique
+          story to tell, and with our user-friendly platform, you can easily
+          create, edit, and publish blogs that reach a wide audience.<br /><br />
 
-                    At Easy Post, we’re focused on making blogging accessible to all. You can dive right in and 
-                    browse through various blogs on different topics, from personal experiences and lifestyle tips 
-                    to more technical insights and professional advice. Not only can you explore other users’ blogs, 
-                    but once you register, you’ll have the power to create your own, with the flexibility to update, 
-                    edit, or delete them whenever you wish.<br><br>
+          At Easy Post, we’re focused on making blogging accessible to all. You
+          can dive right in and browse through various blogs on different
+          topics, from personal experiences and lifestyle tips to more technical
+          insights and professional advice. Not only can you explore other
+          users’ blogs, but once you register, you’ll have the power to create
+          your own, with the flexibility to update, edit, or delete them
+          whenever you wish.<br /><br />
 
-                    Our platform is designed to provide a seamless experience for all users, whether you’re reading 
-                    blogs, discovering new ideas, or writing your own. Each blog is thoughtfully categorized, making it 
-                    easy to find what interests you most. And if you’ve written something yourself, Easy Post ensures 
-                    it gets the attention it deserves, allowing readers to engage with your content.<br><br>
+          Our platform is designed to provide a seamless experience for all
+          users, whether you’re reading blogs, discovering new ideas, or writing
+          your own. Each blog is thoughtfully categorized, making it easy to
+          find what interests you most. And if you’ve written something
+          yourself, Easy Post ensures it gets the attention it deserves,
+          allowing readers to engage with your content.<br /><br />
 
-                    We’ve built a supportive and interactive community where readers and writers can connect through shared 
-                    interests, offering feedback and encouragement. Our mission is simple: to make publishing and 
-                    discovering blogs as easy as possible. Join Easy Post today, share your voice with the world, and 
-                    become part of a growing community of writers and readers who are passionate about the power of words.
-                </p>
-            </div>
-            <div class="mt-12 md:mt-0">
-                <img src="https://images.unsplash.com/photo-1531973576160-7125cd663d86" alt="About Us Image" class="object-cover rounded-lg shadow-md">
-            </div>
-        </div>
+          We’ve built a supportive and interactive community where readers and
+          writers can connect through shared interests, offering feedback and
+          encouragement. Our mission is simple: to make publishing and
+          discovering blogs as easy as possible. Join Easy Post today, share
+          your voice with the world, and become part of a growing community of
+          writers and readers who are passionate about the power of words.
+        </p>
+      </div>
+      <div class="mt-12 md:mt-0">
+        <img
+          src="https://images.unsplash.com/photo-1531973576160-7125cd663d86"
+          alt="About Us Image"
+          class="object-cover rounded-lg shadow-md"
+        />
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- why us  -->
 <section class="text-gray-700 body-font mt-10">
-    <div class="flex justify-center text-3xl font-bold text-gray-800 text-center">
-        Why Us?
-    </div>
-    <div class="container px-5 py-12 mx-auto">
-        <div class="flex flex-wrap text-center justify-center">
-            <div class="p-4 md:w-1/4 sm:w-1/2">
-                <div class="px-4 py-6 transform transition duration-500 hover:scale-110">
-                    <div class="flex justify-center">
-                        <img src="https://image3.jdomni.in/banner/13062021/58/97/7C/E53960D1295621EFCB5B13F335_1623567851299.png?output-format=webp" class="w-32 mb-3">
-                    </div>
-                    <h2 class="title-font font-regular text-2xl text-gray-900">Engaging Content Creation</h2>
-                </div>
-            </div>
-            
-            <div class="p-4 md:w-1/4 sm:w-1/2">
-                <div class="px-4 py-6 transform transition duration-500 hover:scale-110">
-                    <div class="flex justify-center">
-                        <img src="https://image2.jdomni.in/banner/13062021/3E/57/E8/1D6E23DD7E12571705CAC761E7_1623567977295.png?output-format=webp" class="w-32 mb-3">
-                    </div>
-                    <h2 class="title-font font-regular text-2xl text-gray-900">Latest Blogging Platform</h2>
-                </div>
-            </div>
-            
-            <div class="p-4 md:w-1/4 sm:w-1/2">
-                <div class="px-4 py-6 transform transition duration-500 hover:scale-110">
-                    <div class="flex justify-center">
-                        <img src="https://image3.jdomni.in/banner/13062021/16/7E/7E/5A9920439E52EF309F27B43EEB_1623568010437.png?output-format=webp" class="w-32 mb-3">
-                    </div>
-                    <h2 class="title-font font-regular text-2xl text-gray-900">Time-Saving Features</h2>
-                </div>
-            </div>
-            
-            <div class="p-4 md:w-1/4 sm:w-1/2">
-                <div class="px-4 py-6 transform transition duration-500 hover:scale-110">
-                    <div class="flex justify-center">
-                        <img src="https://image3.jdomni.in/banner/13062021/EB/99/EE/8B46027500E987A5142ECC1CE1_1623567959360.png?output-format=webp" class="w-32 mb-3">
-                    </div>
-                    <h2 class="title-font font-regular text-2xl text-gray-900">Community and Support</h2>
-                </div>
-            </div>
-            
+  <div class="flex justify-center text-3xl font-bold text-gray-800 text-center">
+    Why Us?
+  </div>
+  <div class="container px-5 py-12 mx-auto">
+    <div class="flex flex-wrap text-center justify-center">
+      <div class="p-4 md:w-1/4 sm:w-1/2">
+        <div
+          class="px-4 py-6 transform transition duration-500 hover:scale-110"
+        >
+          <div class="flex justify-center">
+            <img
+              src="https://image3.jdomni.in/banner/13062021/58/97/7C/E53960D1295621EFCB5B13F335_1623567851299.png?output-format=webp"
+              class="w-32 mb-3"
+            />
+          </div>
+          <h2 class="title-font font-regular text-2xl text-gray-900">
+            Engaging Content Creation
+          </h2>
         </div>
+      </div>
+
+      <div class="p-4 md:w-1/4 sm:w-1/2">
+        <div
+          class="px-4 py-6 transform transition duration-500 hover:scale-110"
+        >
+          <div class="flex justify-center">
+            <img
+              src="https://image2.jdomni.in/banner/13062021/3E/57/E8/1D6E23DD7E12571705CAC761E7_1623567977295.png?output-format=webp"
+              class="w-32 mb-3"
+            />
+          </div>
+          <h2 class="title-font font-regular text-2xl text-gray-900">
+            Latest Blogging Platform
+          </h2>
+        </div>
+      </div>
+
+      <div class="p-4 md:w-1/4 sm:w-1/2">
+        <div
+          class="px-4 py-6 transform transition duration-500 hover:scale-110"
+        >
+          <div class="flex justify-center">
+            <img
+              src="https://image3.jdomni.in/banner/13062021/16/7E/7E/5A9920439E52EF309F27B43EEB_1623568010437.png?output-format=webp"
+              class="w-32 mb-3"
+            />
+          </div>
+          <h2 class="title-font font-regular text-2xl text-gray-900">
+            Time-Saving Features
+          </h2>
+        </div>
+      </div>
+
+      <div class="p-4 md:w-1/4 sm:w-1/2">
+        <div
+          class="px-4 py-6 transform transition duration-500 hover:scale-110"
+        >
+          <div class="flex justify-center">
+            <img
+              src="https://image3.jdomni.in/banner/13062021/EB/99/EE/8B46027500E987A5142ECC1CE1_1623567959360.png?output-format=webp"
+              class="w-32 mb-3"
+            />
+          </div>
+          <h2 class="title-font font-regular text-2xl text-gray-900">
+            Community and Support
+          </h2>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <section class="bg-gray-100">
-    <app-footer></app-footer>
+  <app-footer></app-footer>
 </section>
 
 <script>
-    document.getElementById("hamburger").onclick = function toggleMenu() {
-        const navToggle = document.getElementsByClassName("toggle");
-        for (let i = 0; i < navToggle.length; i++) {
-          navToggle.item(i).classList.toggle("hidden");
-        }
-      };
+  document.getElementById("hamburger").onclick = function toggleMenu() {
+    const navToggle = document.getElementsByClassName("toggle");
+    for (let i = 0; i < navToggle.length; i++) {
+      navToggle.item(i).classList.toggle("hidden");
+    }
+  };
 </script>

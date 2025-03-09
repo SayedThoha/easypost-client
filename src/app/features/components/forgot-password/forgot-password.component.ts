@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
     }
     const data = this.emailForm.value.email;
     if (data) {
-      console.log(data);
+      
 
       this.userService.verifyEmail({ email: data }).subscribe({
         next: (Response) => {

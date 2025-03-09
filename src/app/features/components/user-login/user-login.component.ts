@@ -57,10 +57,6 @@ export class UserLoginComponent implements OnInit {
           localStorage.setItem('accessToken', Response.accessToken);
           localStorage.setItem('accessedUser', Response.accessedUser);
           localStorage.setItem('refreshToken', Response.refreshToken);
-          console.log('Response userId:', Response.accessedUser);
-
-          console.log('userId:', localStorage.getItem('accessedUser'));
-
           this.messageToaster.showSuccessToastr(Response.message);
         },
         error: (Error) => {

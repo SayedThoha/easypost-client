@@ -13,7 +13,7 @@ export class MessageToasterService {
       timeOut: 5000,
       progressAnimation: 'increasing',
       progressBar: true,
-      positionClass: 'toast-top-center'
+      positionClass: 'toast-top-center',
     });
   }
 
@@ -23,7 +23,7 @@ export class MessageToasterService {
       timeOut: 5000,
       progressAnimation: 'increasing',
       progressBar: true,
-      positionClass: 'toast-top-center'
+      positionClass: 'toast-top-center',
     });
   }
 
@@ -33,7 +33,7 @@ export class MessageToasterService {
       timeOut: 5000,
       progressAnimation: 'increasing',
       progressBar: true,
-      positionClass: 'toast-top-center'
+      positionClass: 'toast-top-center',
     });
   }
 }

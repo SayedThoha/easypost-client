@@ -18,8 +18,7 @@
             <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Our Blogs</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div *ngFor="let blog of blogs"  class="bg-white rounded-lg shadow-md overflow-hidden">
-                    <!-- <img src="/assets/images/pic1.jpg" alt="wheat flour grinding"
-                        class="w-full h-64 object-cover"> -->
+                    
                     <img (click)="displayBlog(blog._id)" [src]="blog.image" alt="wheat flour grinding"
                         class="w-full h-64 object-cover">
                     <div class="p-6 text-center">
@@ -33,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <h2 class="py-12 text-3xl font-bold text-gray-800 mb-8 text-center">More Blogs</h2> -->
+            
         </ng-template>
     </div>
 </section>

@@ -1,89 +1,174 @@
 <app-header></app-header>
 <!-- blog-post-creation.component.html -->
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Edit Your Blog Post</h1>
-    
-    <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" class="max-w-2xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="topic">
-          Topic
-        </label>
-        <select formControlName="topic" (change)="onTopicChange()" id="topic"
-         class="block w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500"
-         [ngClass]="{ 'border-red-500': blogForm.get('topic')?.touched && blogForm.get('topic')?.invalid }">
-          <option value="" disabled selected>Select a topic</option>
-          <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
-        </select>
-        <div *ngIf="blogForm.get('topic')?.touched && blogForm.get('topic')?.invalid" class="text-red-500 text-xs mt-1">
-            <div *ngIf="blogForm.get('topic')?.hasError('required')">*required</div>        
-        </div>
+  <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">
+    Edit Your Blog Post
+  </h1>
+
+  <form
+    [formGroup]="blogForm"
+    (ngSubmit)="onSubmit()"
+    class="max-w-2xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+  >
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="topic">
+        Topic
+      </label>
+      <select
+        formControlName="topic"
+        (change)="onTopicChange()"
+        id="topic"
+        class="block w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500"
+        [ngClass]="{
+          'border-red-500':
+            blogForm.get('topic')?.touched && blogForm.get('topic')?.invalid
+        }"
+      >
+        <option value="" disabled selected>Select a topic</option>
+        <option *ngFor="let topic of topics" [value]="topic">
+          {{ topic }}
+        </option>
+      </select>
+      <div
+        *ngIf="blogForm.get('topic')?.touched && blogForm.get('topic')?.invalid"
+        class="text-red-500 text-xs mt-1"
+      >
+        <div *ngIf="blogForm.get('topic')?.hasError('required')">*required</div>
       </div>
-  
-      <div *ngIf="blogForm.get('topic')?.value === 'Other'" class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="otherTopic">
-          Other Topic
-        </label>
-        <input formControlName="otherTopic" type="text" id="otherTopic" 
+    </div>
+
+    <div *ngIf="blogForm.get('topic')?.value === 'Other'" class="mb-4">
+      <label
+        class="block text-gray-700 text-sm font-bold mb-2"
+        for="otherTopic"
+      >
+        Other Topic
+      </label>
+      <input
+        formControlName="otherTopic"
+        type="text"
+        id="otherTopic"
         placeholder="Enter your topic"
         class="block w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500"
-        [ngClass]="{ 'border-red-500': blogForm.get('otherTopic')?.touched && blogForm.get('otherTopic')?.invalid }">
-        <div *ngIf="blogForm.get('otherTopic')?.touched && blogForm.get('otherTopic')?.invalid" class="text-red-500 text-xs mt-1">
-            <div *ngIf="blogForm.get('otherTopic')?.hasError('required')">*required</div>
-            <div *ngIf="blogForm.get('otherTopic')?.hasError('pattern')">*incorrect pattern</div>
-            <div *ngIf="blogForm.get('otherTopic')?.hasError('minLength')">*min 5 length required </div>
-        </div>    
+        [ngClass]="{
+          'border-red-500':
+            blogForm.get('otherTopic')?.touched &&
+            blogForm.get('otherTopic')?.invalid
+        }"
+      />
+      <div
+        *ngIf="
+          blogForm.get('otherTopic')?.touched &&
+          blogForm.get('otherTopic')?.invalid
+        "
+        class="text-red-500 text-xs mt-1"
+      >
+        <div *ngIf="blogForm.get('otherTopic')?.hasError('required')">
+          *required
+        </div>
+        <div *ngIf="blogForm.get('otherTopic')?.hasError('pattern')">
+          *incorrect pattern
+        </div>
+        <div *ngIf="blogForm.get('otherTopic')?.hasError('minLength')">
+          *min 5 length required
+        </div>
+      </div>
     </div>
-  
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
-          Title
-        </label>
-        <input formControlName="title" type="text" id="title" 
+
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+        Title
+      </label>
+      <input
+        formControlName="title"
+        type="text"
+        id="title"
         placeholder="Enter your blog post title"
-        class="block w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500" 
-        [ngClass]="{ 'border-red-500': blogForm.get('title')?.touched && blogForm.get('title')?.invalid }">
-        <div *ngIf="blogForm.get('title')?.touched && blogForm.get('title')?.invalid" class="text-red-500 text-xs mt-1">
-            <div *ngIf="blogForm.get('title')?.hasError('required')">*required</div>
-            <div *ngIf="blogForm.get('title')?.hasError('minlength')">*only alphabets</div>
+        class="block w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500"
+        [ngClass]="{
+          'border-red-500':
+            blogForm.get('title')?.touched && blogForm.get('title')?.invalid
+        }"
+      />
+      <div
+        *ngIf="blogForm.get('title')?.touched && blogForm.get('title')?.invalid"
+        class="text-red-500 text-xs mt-1"
+      >
+        <div *ngIf="blogForm.get('title')?.hasError('required')">*required</div>
+        <div *ngIf="blogForm.get('title')?.hasError('minlength')">
+          *only alphabets
         </div>
+      </div>
     </div>
-  
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="content">
-          Content
-        </label>
-        <textarea formControlName="content" id="content" rows="6" 
-            placeholder="Write your blog post content here"
-            class="block w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500" 
-            [ngClass]="{ 'border-red-500': blogForm.get('content')?.touched && blogForm.get('content')?.invalid }"></textarea>
-        <div *ngIf="blogForm.get('content')?.touched && blogForm.get('content')?.invalid" class="text-red-500 text-xs mt-1">
-            <div *ngIf="blogForm.get('content')?.hasError('required')">*required</div>
+
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="content">
+        Content
+      </label>
+      <textarea
+        formControlName="content"
+        id="content"
+        rows="6"
+        placeholder="Write your blog post content here"
+        class="block w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500"
+        [ngClass]="{
+          'border-red-500':
+            blogForm.get('content')?.touched && blogForm.get('content')?.invalid
+        }"
+      ></textarea>
+      <div
+        *ngIf="
+          blogForm.get('content')?.touched && blogForm.get('content')?.invalid
+        "
+        class="text-red-500 text-xs mt-1"
+      >
+        <div *ngIf="blogForm.get('content')?.hasError('required')">
+          *required
         </div>
-    </div>  
-  
-      <div class="mb-4">
+      </div>
+    </div>
+
+    <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
         Upload Image
       </label>
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" id="image" 
-      class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-      [ngClass]="{ 'border-red-500': blogForm.get('image')?.touched && blogForm.get('image')?.invalid }">
-      <div *ngIf="blogForm.get('image')?.touched && blogForm.get('image')?.invalid" class="text-red-500 text-xs mt-1">
-        <div *ngIf="blogForm.get('image')?.hasError('required')">*Image is required</div>
-        <!-- <div *ngIf="blogForm.get('image')?.hasError('maxSize')">*Image size should be less than 5MB</div> -->
-        <!-- <div *ngIf="blogForm.get('image')?.hasError('invalidType')">*Only JPEG, PNG, and GIF images are allowed</div> -->
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        id="image"
+        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+        [ngClass]="{
+          'border-red-500':
+            blogForm.get('image')?.touched && blogForm.get('image')?.invalid
+        }"
+      />
+      <div
+        *ngIf="blogForm.get('image')?.touched && blogForm.get('image')?.invalid"
+        class="text-red-500 text-xs mt-1"
+      >
+        <div *ngIf="blogForm.get('image')?.hasError('required')">
+          *Image is required
+        </div>
       </div>
     </div>
 
     <div *ngIf="imagePreview" class="mb-4">
-      <img [src]="imagePreview" alt="Preview" class="max-w-full h-auto rounded-lg shadow-md">
+      <img
+        [src]="imagePreview"
+        alt="Preview"
+        class="max-w-full h-auto rounded-lg shadow-md"
+      />
     </div>
-  
-      <div class="flex items-center justify-between">
-        <button type="submit"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50">
-          Edit Post
-        </button>
-      </div>
-    </form>
-  </div>
+
+    <div class="flex items-center justify-between">
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
+      >
+        Edit Post
+      </button>
+    </div>
+  </form>
+</div>
 <app-footer></app-footer>

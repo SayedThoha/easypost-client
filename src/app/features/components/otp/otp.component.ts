@@ -39,7 +39,6 @@ export class OtpComponent implements OnInit {
     this.intialiseForms();
     this.email = localStorage.getItem('email');
     this.newEmail = localStorage.getItem('new_email');
-    console.log('newEmail', this.newEmail);
   }
   intialiseForms() {
     this.otpForm = this.formBuilder.group({
@@ -59,21 +58,6 @@ export class OtpComponent implements OnInit {
   resendClicked() {
     this.counter = 59;
     this.counterFn();
-    // if(this._commonservice.getAuthFromLocalStorage()==='doctor'){
-    //   this._doctorService.resendOtp({email:this.email}).subscribe({
-    //     next:(response)=>{
-    //       this._showMessage.showSuccessToastr(response.message)
-    //       this.otpForm.reset()
-    //     }
-    //   })
-    // }else{
-    //   this._userService.resendOtp({email:this.email}).subscribe({
-    //     next:(response)=>{
-    //       this._showMessage.showSuccessToastr(response.message)
-    //       this.otpForm.reset()
-    //     }
-    //   })
-    // }
   }
 
   markFormGroupTouched(formGroup: FormGroup) {
@@ -113,10 +97,8 @@ export class OtpComponent implements OnInit {
   }
 
   serverCall(otpData: verifyOtp) {
-    console.log('otpData:', otpData);
     this.userService.verifyOtp(otpData).subscribe({
       next: (Response) => {
-        console.log(Response);
         localStorage.removeItem('email');
         localStorage.removeItem('newEmail');
         localStorage.removeItem('accessToken');
@@ -130,5 +112,4 @@ export class OtpComponent implements OnInit {
       },
     });
   }
-
 }
