@@ -86,6 +86,10 @@ export class UserService {
     );
   }
 
+  refreshToken(data: any): Observable<any> {
+    return this._http.post(`${this.apiUrl}/auth/refresh-token`, data);
+  }
+
   userDetails(_id: string): Observable<userDetails> {
     return this._http.get<userDetails>(
       `${this.apiUrl}/user/userDetails/${_id}`
@@ -120,8 +124,11 @@ export class UserService {
     );
   }
 
-  refreshToken(data: any): Observable<any> {
-    return this._http.post(`${this.apiUrl}/auth/refresh-token`, data);
+  resendOtp(email: object): Observable<httpResponseModel> {
+    return this._http.post<httpResponseModel>(
+      `${this.apiUrl}/user/resendOtp`,
+      email
+    );
   }
-  
+
 }

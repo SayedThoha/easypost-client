@@ -40,6 +40,7 @@ export class OtpComponent implements OnInit {
     this.email = localStorage.getItem('email');
     this.newEmail = localStorage.getItem('new_email');
   }
+
   intialiseForms() {
     this.otpForm = this.formBuilder.group({
       otp: ['', [Validators.required, Validators.pattern(otpPattern)]],
@@ -56,9 +57,21 @@ export class OtpComponent implements OnInit {
   }
 
   resendClicked() {
-    this.counter = 59;
-    this.counterFn();
+    // this.counter = 59;
+    // this.counterFn();
+    this.userService.resendOtp({ email: this.email }).subscribe({
+      next: (response) => {
+        this.messageToaster.showSuccessToastr(response.message);
+        this.counter = 59; // Reset timer
+        this.counterFn(); // Restart countdown
+      },
+      error: (error) => {
+        console.log(error.error);
+        this.messageToaster.showErrorToastr(error.error.message);
+      },
+    });
   }
+  
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {
