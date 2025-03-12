@@ -109,7 +109,6 @@ export class EditBlogComponent implements OnInit {
   submitEditBlog(blogData: blogData) {
     this.userService.editBlog(blogData).subscribe({
       next: (response) => {
-        
         this.messageService.showSuccessToastr(response.message);
         this.router.navigate(['display_blog', this.blogId]);
       },
@@ -147,22 +146,18 @@ export class EditBlogComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files?.[0];
     this.selectedFile = file || null;
     if (this.selectedFile) {
-      // Clear the validation for the image field after a file is selected
       this.blogForm.get('image')?.clearValidators();
       this.blogForm.get('image')?.updateValueAndValidity();
-      // Preview the image
+
       this.previewImage();
     }
   }
 
   previewImage() {
     if (this.selectedFile) {
-      
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result;
-        
-
       };
       reader.readAsDataURL(this.selectedFile);
     }
@@ -172,11 +167,10 @@ export class EditBlogComponent implements OnInit {
     this.userService.SingleBlog(blogId).subscribe({
       next: (Response) => {
         this.blogDetails = Response;
-        // Set the image preview if image exists
+
         if (this.blogDetails.image) {
           this.imagePreview = this.blogDetails.image;
         }
-        
 
         if (!this.topics.includes(this.blogDetails.topic)) {
           this.blogForm.patchValue({
@@ -194,7 +188,7 @@ export class EditBlogComponent implements OnInit {
             image: this.blogDetails.image,
           });
         }
-        // Store the original form data for comparison
+
         this.originalFormData = this.blogForm.getRawValue();
       },
       error: (error) => {
@@ -203,10 +197,9 @@ export class EditBlogComponent implements OnInit {
     });
   }
 
-  // Function to compare form values with the original data
   areFormValuesUnchanged(): boolean {
     const currentFormData = this.blogForm.getRawValue();
-   
+
     return (
       JSON.stringify(this.originalFormData) === JSON.stringify(currentFormData)
     );

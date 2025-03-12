@@ -71,10 +71,9 @@ export class CreateBlogComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files?.[0];
     this.selectedFile = file || null;
     if (this.selectedFile) {
-      // Clear the validation for the image field after a file is selected
       this.blogForm.get('image')?.clearValidators();
       this.blogForm.get('image')?.updateValueAndValidity();
-      // Preview the image
+
       this.previewImage();
     }
   }
@@ -95,7 +94,6 @@ export class CreateBlogComponent implements OnInit {
       return;
     }
 
-    // Upload the image to Cloudinary
     if (this.selectedFile) {
       this.uploadService.uploadImage(this.selectedFile, 'EasyPost').subscribe({
         next: (response) => {

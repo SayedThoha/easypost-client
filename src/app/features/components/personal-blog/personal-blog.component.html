@@ -1,39 +1,57 @@
 <app-header></app-header>
-<!-- our services section -->
-<section class="py-10 px-10">
-    <div class="container mx-auto px-4">
-        <ng-container *ngIf="blogs.length === 0; else your_blogs">
-            <div class="flex flex-col items-center">
-                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
-                  You haven't created any blogs yet.
-                </h2>
-                <button (click)="addBlogs()"
-                  class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200">
-                  Create your own blog
-                </button>
-            </div>
-        </ng-container>
-        <ng-template #your_blogs>
 
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Our Blogs</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div *ngFor="let blog of blogs"  class="bg-white rounded-lg shadow-md overflow-hidden">
-                    
-                    <img (click)="displayBlog(blog._id)" [src]="blog.image" alt="wheat flour grinding"
-                        class="w-full h-64 object-cover">
-                    <div class="p-6 text-center">
-                        <button (click)="displayBlog(blog._id)" class="text-xl font-medium text-gray-800 mb-2">{{blog.title}}</button>
-                        <h6>Author: {{(blog.userId.firstname|titlecase)}} {{(blog.userId.lastname|titlecase)}}</h6>
-                        <details>
-                            <summary>Read More</summary>
-                            {{ getTruncatedContent(blog.content) }}...
-                                <a class="text-blue-600 underline" (click)="displayBlog(blog._id)">Read More</a>
-                        </details>
-                    </div>
-                </div>
-            </div>
-            
-        </ng-template>
-    </div>
+<section class="py-10 px-10">
+  <div class="container mx-auto px-4">
+    <ng-container *ngIf="blogs.length === 0; else your_blogs">
+      <div class="flex flex-col items-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+          You haven't created any blogs yet.
+        </h2>
+        <button
+          (click)="addBlogs()"
+          class="px-6 py-3 bg-[#c8a876] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200"
+        >
+          Create your own blog
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #your_blogs>
+      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+        Our Blogs
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          *ngFor="let blog of blogs"
+          class="bg-white rounded-lg shadow-md overflow-hidden"
+        >
+          <img
+            (click)="displayBlog(blog._id)"
+            [src]="blog.image"
+            alt="wheat flour grinding"
+            class="w-full h-64 object-cover"
+          />
+          <div class="p-6 text-center">
+            <button
+              (click)="displayBlog(blog._id)"
+              class="text-xl font-medium text-gray-800 mb-2"
+            >
+              {{ blog.title }}
+            </button>
+            <h6>
+              Author: {{ blog.userId.firstname | titlecase }}
+              {{ blog.userId.lastname | titlecase }}
+            </h6>
+            <details>
+              <summary>Read More</summary>
+              {{ getTruncatedContent(blog.content) }}...
+              <a class="text-blue-600 underline" (click)="displayBlog(blog._id)"
+                >Read More</a
+              >
+            </details>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
 </section>
 <app-footer></app-footer>

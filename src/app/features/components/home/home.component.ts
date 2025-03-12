@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   blogs!: blogResponse[];
   ngOnInit(): void {
-    
+
     console.log(
       localStorage.getItem('email'),
       localStorage.getItem('newEmail')
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['display_blog', blogId]);
   }
 
-  // Function to truncate content to the first 15 words
+  
   getTruncatedContent(content: string): string {
     const words = content.split(' ');
     if (words.length > 15) {

@@ -57,13 +57,11 @@ export class OtpComponent implements OnInit {
   }
 
   resendClicked() {
-    // this.counter = 59;
-    // this.counterFn();
     this.userService.resendOtp({ email: this.email }).subscribe({
       next: (response) => {
         this.messageToaster.showSuccessToastr(response.message);
-        this.counter = 59; // Reset timer
-        this.counterFn(); // Restart countdown
+        this.counter = 59;
+        this.counterFn();
       },
       error: (error) => {
         console.log(error.error);
@@ -71,7 +69,6 @@ export class OtpComponent implements OnInit {
       },
     });
   }
-  
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {

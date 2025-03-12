@@ -39,7 +39,6 @@ export class AllBlogsComponent implements OnInit {
     this.router.navigate(['/display_blog', blogId]);
   }
 
-  // Function to truncate content to the first 15 words
   getTruncatedContent(content: string): string {
     const words = content.split(' ');
     if (words.length > 15) {

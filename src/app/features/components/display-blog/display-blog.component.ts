@@ -57,7 +57,6 @@ export class DisplayBlogComponent implements OnInit {
     });
   }
 
-  // Method to convert newlines to <br> tags
   formatContent(content: string): string {
     return content.replace(/\n/g, '<br>');
   }
