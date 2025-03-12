@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  apiUrl: 'https://www.posteasy.shop',
+  production: false,
+  apiUrl: 'http://localhost:3000',
 };
