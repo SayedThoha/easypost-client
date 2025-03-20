@@ -73,7 +73,7 @@ export class UserRegisterComponent implements OnInit {
             this.messageToaster.showSuccessToastr(Response.message);
           },
           error: (Error) => {
-            console.log('not registered', Error);
+            console.error('not registered', Error);
             this.messageToaster.showErrorToastr(Error.error.message);
           },
         });

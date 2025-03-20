@@ -41,9 +41,10 @@ export class ForgotPasswordComponent implements OnInit {
         next: (Response) => {
           if (Response.email) {
             localStorage.setItem('email', Response.email);
+            localStorage.setItem('isForgotPassword', 'true');
           }
           this.messageService.showSuccessToastr(Response.message);
-          this.router.navigate(['new_password']);
+          this.router.navigate(['otp']);
         },
         error: (Error) => {
           this.messageService.showErrorToastr(Error.error);

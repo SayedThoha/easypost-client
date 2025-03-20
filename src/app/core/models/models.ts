@@ -25,6 +25,7 @@ export interface verifyOtp{
     newEmail?:string,
     email:string,
     otp:number
+    isForgotPassword?:boolean,
 }
 
 export interface blogData{

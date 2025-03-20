@@ -64,7 +64,7 @@ export class OtpComponent implements OnInit {
         this.counterFn();
       },
       error: (error) => {
-        console.log(error.error);
+        console.error(error.error);
         this.messageToaster.showErrorToastr(error.error.message);
       },
     });
@@ -85,11 +85,13 @@ export class OtpComponent implements OnInit {
       return;
     } else {
       let otpData;
+      const isForgotPassword = localStorage.getItem('isForgotPassword');
       if (this.email && this.otpForm.get('otp')?.value && this.newEmail) {
         otpData = {
           newEmail: this.newEmail,
           email: this.email,
           otp: Number(this.otpForm.get('otp')?.value),
+          isForgotPassword: isForgotPassword ? true : false,
         };
         if (otpData.email && otpData.otp && otpData.newEmail) {
           this.serverCall(otpData);
@@ -98,6 +100,7 @@ export class OtpComponent implements OnInit {
         otpData = {
           email: this.email,
           otp: Number(this.otpForm.get('otp')?.value),
+          isForgotPassword: isForgotPassword ? true : false,
         };
         if (otpData.email && otpData.otp) {
           this.serverCall(otpData);
@@ -114,10 +117,19 @@ export class OtpComponent implements OnInit {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('accesseduser');
         this.messageToaster.showSuccessToastr(Response.message);
+          
+      const isForgotPassword = localStorage.getItem('isForgotPassword');
+
+      if (isForgotPassword) {
+        localStorage.removeItem('isForgotPassword'); 
+        localStorage.setItem('email', this.email as string);
+        this.router.navigate(['new_password']); 
+      } else {
         this.router.navigate(['login']);
+      }
       },
       error: (error) => {
-        console.log(error.error);
+        console.error(error.error);
         this.messageToaster.showErrorToastr(error.error.message);
       },
     });

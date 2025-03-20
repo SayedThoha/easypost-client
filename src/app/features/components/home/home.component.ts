@@ -17,12 +17,6 @@ export class HomeComponent implements OnInit {
 
   blogs!: blogResponse[];
   ngOnInit(): void {
-
-    console.log(
-      localStorage.getItem('email'),
-      localStorage.getItem('newEmail')
-    );
-
     this.userService.AllBlogs().subscribe({
       next: (Response) => {
         this.blogs = Response.slice(0, 6);
@@ -50,7 +44,6 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['display_blog', blogId]);
   }
 
-  
   getTruncatedContent(content: string): string {
     const words = content.split(' ');
     if (words.length > 15) {

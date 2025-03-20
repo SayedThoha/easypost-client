@@ -198,7 +198,7 @@ export class ProfileComponent implements OnInit {
           this.close_name();
         },
         error: (error) => {
-          console.log('Error response:', error);
+          console.error('Error response:', error);
           this.showMessage.showErrorToastr(error.error.message);
           this.close_name();
         },
