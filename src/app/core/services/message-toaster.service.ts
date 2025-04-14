@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 export class MessageToasterService {
   constructor(private _toastr: ToastrService) {}
 
-  // For showing the toastr message in succes senario
+  
   showSuccessToastr(message: string) {
     return this._toastr.success(message, '', {
       timeOut: 5000,
@@ -17,7 +17,7 @@ export class MessageToasterService {
     });
   }
 
-  // For showing the toastr message in warning senario
+  
   showWarningToastr(message: string) {
     return this._toastr.warning(message, '', {
       timeOut: 5000,

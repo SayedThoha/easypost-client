@@ -62,7 +62,7 @@ export class DisplayBlogComponent implements OnInit {
   }
 
   getBlogDetails(blogId: string) {
-    this.userService.SingleBlog(blogId).subscribe({
+    this.userService.singleBlog(blogId).subscribe({
       next: (Response) => {
         this.blogDetails = Response;
         if (this.blogDetails.userId._id === this.userId) {

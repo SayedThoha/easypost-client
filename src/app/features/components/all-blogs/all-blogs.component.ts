@@ -28,7 +28,7 @@ export class AllBlogsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.AllBlogs().subscribe({
+    this.userService.allBlogs().subscribe({
       next: (Response) => {
         this.blogs = Response;
       },

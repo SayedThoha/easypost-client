@@ -1,6 +1,6 @@
 export interface userRegister{
-    firstname:string,
-    lastname:string,
+    firstName:string,
+    lastName:string,
     email:string,
     password:string
 }
@@ -41,8 +41,8 @@ export interface blogData{
 export interface blogResponse{
     userId: {
         _id:string,
-        firstname: string,
-        lastname: string,
+        firstName: string,
+        lastName: string,
         email: string,
     },
     _id:string,
@@ -61,8 +61,8 @@ export interface profileData{
 
 export interface userDetails{
     _id?:string,
-    firstname?:string,
-    lastname?:string,
+    firstName?:string,
+    lastName?:string,
     email?:string,
     profilePicture?:string
 }

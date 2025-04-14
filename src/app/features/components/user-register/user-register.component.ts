@@ -56,8 +56,8 @@ export class UserRegisterComponent implements OnInit {
         this.messageToaster.showErrorToastr('Passwords are not matching');
       } else {
         const data: userRegister = {
-          firstname: this.registrationForm.get('firstname')?.value as string,
-          lastname: this.registrationForm.get('lastname')?.value as string,
+          firstName: this.registrationForm.get('firstName')?.value as string,
+          lastName: this.registrationForm.get('lastName')?.value as string,
           email: this.registrationForm.get('email')?.value as string,
           password: this.registrationForm.get('password')?.value as string,
         };

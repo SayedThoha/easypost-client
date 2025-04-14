@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   blogs!: blogResponse[];
   ngOnInit(): void {
-    this.userService.AllBlogs().subscribe({
+    this.userService.allBlogs().subscribe({
       next: (Response) => {
         this.blogs = Response.slice(0, 6);
       },

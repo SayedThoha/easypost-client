@@ -22,30 +22,30 @@
           >
           <div class="mt-2 relative rounded-md">
             <input
-              formControlName="firstname"
+              formControlName="firstName"
               placeholder="first name"
               type="text"
               class="appearance-none block w-full px-3 py-2 border-2 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
               [ngClass]="{
                 'border-red-300':
-                  registrationForm.get('firstname')?.touched &&
-                  registrationForm.get('firstname')?.invalid
+                  registrationForm.get('firstName')?.touched &&
+                  registrationForm.get('firstName')?.invalid
               }"
             />
             <div
               *ngIf="
-                registrationForm.get('firstname')?.touched &&
-                registrationForm.get('firstname')?.invalid
+                registrationForm.get('firstName')?.touched &&
+                registrationForm.get('firstName')?.invalid
               "
               class="text-red-500 text-xs mt-2"
             >
               <div
-                *ngIf="registrationForm.get('firstname')?.hasError('required')"
+                *ngIf="registrationForm.get('firstName')?.hasError('required')"
               >
                 *required
               </div>
               <div
-                *ngIf="registrationForm.get('firstname')?.hasError('pattern')"
+                *ngIf="registrationForm.get('firstName')?.hasError('pattern')"
               >
                 *Invalid format
               </div>
@@ -61,30 +61,30 @@
           >
           <div class="mt-2 relative rounded-md">
             <input
-              formControlName="lastname"
+              formControlName="lastName"
               placeholder="last name"
               type="text"
               class="appearance-none block w-full px-3 py-2 border-2 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
               [ngClass]="{
                 'border-red-300':
-                  registrationForm.get('lastname')?.touched &&
-                  registrationForm.get('lastname')?.invalid
+                  registrationForm.get('lastName')?.touched &&
+                  registrationForm.get('lastName')?.invalid
               }"
             />
             <div
               *ngIf="
-                registrationForm.get('lastname')?.touched &&
-                registrationForm.get('lastname')?.invalid
+                registrationForm.get('lastName')?.touched &&
+                registrationForm.get('lastName')?.invalid
               "
               class="text-red-500 text-xs mt-2"
             >
               <div
-                *ngIf="registrationForm.get('lastname')?.hasError('required')"
+                *ngIf="registrationForm.get('lastName')?.hasError('required')"
               >
                 *required
               </div>
               <div
-                *ngIf="registrationForm.get('lastname')?.hasError('pattern')"
+                *ngIf="registrationForm.get('lastName')?.hasError('pattern')"
               >
                 *Invalid format
               </div>

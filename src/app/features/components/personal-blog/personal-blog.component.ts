@@ -49,7 +49,7 @@ export class PersonalBlogComponent implements OnInit {
       userId = localStorage.getItem('accessedUser');
     }
     if (userId) {
-      this.userService.PersonalBlogs(userId).subscribe({
+      this.userService.personalBlogs(userId).subscribe({
         next: (Response) => {
           this.blogs = Response;
         },

@@ -24,7 +24,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
-  user_profile_data: any = { firstname: '', lastname: '' };
+  user_profile_data: any = { firstName: '', lastName: '' };
   userId!: any;
   email_edit: boolean = false;
   name_edit: boolean = false;
@@ -49,8 +49,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.profileData();
     this.initializeForms();
-    this.name_form.get('firstname')?.disable();
-    this.name_form.get('lastname')?.disable();
+    this.name_form.get('firstName')?.disable();
+    this.name_form.get('lastName')?.disable();
     this.email_form.get('email')?.disable();
   }
 
@@ -121,16 +121,16 @@ export class ProfileComponent implements OnInit {
     });
 
     this.name_form = this.formBuilder.group({
-      firstname: [
-        this.user_profile_data.firstname,
+      firstName: [
+        this.user_profile_data.firstName,
         [
           Validators.required,
           Validators.maxLength(50),
           Validators.pattern(namePattern),
         ],
       ],
-      lastname: [
-        this.user_profile_data.lastname,
+      lastName: [
+        this.user_profile_data.lastName,
         [
           Validators.required,
           Validators.maxLength(50),
@@ -146,16 +146,16 @@ export class ProfileComponent implements OnInit {
 
   close_name() {
     this.name_form.patchValue({
-      firstname: this.user_profile_data.firstname,
-      lastname: this.user_profile_data.lastname,
+      firstName: this.user_profile_data.firstName,
+      lastName: this.user_profile_data.lastName,
     });
     this.name_edit = !this.name_edit;
     if (this.name_edit) {
-      this.name_form.get('firstname')?.enable();
-      this.name_form.get('lastname')?.enable();
+      this.name_form.get('firstName')?.enable();
+      this.name_form.get('lastName')?.enable();
     } else {
-      this.name_form.get('firstname')?.disable();
-      this.name_form.get('lastname')?.disable();
+      this.name_form.get('firstName')?.disable();
+      this.name_form.get('lastName')?.disable();
     }
   }
 
@@ -178,23 +178,23 @@ export class ProfileComponent implements OnInit {
       return;
     } else {
       if (
-        this.name_form.value.firstname === this.user_profile_data.firstname &&
-        this.name_form.value.lastname === this.user_profile_data.lastname
+        this.name_form.value.firstName === this.user_profile_data.firstName &&
+        this.name_form.value.lastName === this.user_profile_data.lastName
       ) {
         this.close_name();
         return;
       }
       const data = {
         _id: this.userId || undefined,
-        firstname: this.name_form.value.firstname,
-        lastname: this.name_form.value.lastname,
+        firstName: this.name_form.value.firstName,
+        lastName: this.name_form.value.lastName,
         email: this.user_profile_data.email,
       };
       this.userService.editUserName(data).subscribe({
         next: (response) => {
           this.showMessage.showSuccessToastr(response.message);
-          this.user_profile_data.firstname = data.firstname;
-          this.user_profile_data.lastname = data.lastname;
+          this.user_profile_data.firstName = data.firstName;
+          this.user_profile_data.lastName = data.lastName;
           this.close_name();
         },
         error: (error) => {
@@ -258,8 +258,8 @@ export class ProfileComponent implements OnInit {
           this.user_profile_data = response;
           this.url = this.user_profile_data.profilePicture;
           this.name_form.patchValue({
-            firstname: this.user_profile_data.firstname,
-            lastname: this.user_profile_data.lastname,
+            firstName: this.user_profile_data.firstName,
+            lastName: this.user_profile_data.lastName,
           });
           this.email_form.patchValue({
             email: this.user_profile_data.email,

@@ -9,11 +9,11 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (token) {
     console.log('true');
 
-    return true; // User is authenticated, allow access
+    return true; 
   } else {
     console.log('false');
 
     router.navigate(['/login']);
-    return false; // Deny access
+    return false; 
   }
 };

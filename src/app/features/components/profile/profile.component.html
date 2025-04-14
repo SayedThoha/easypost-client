@@ -48,71 +48,71 @@
             class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full"
           >
             <div class="w-full mb-4 mt-4">
-              <label for="firstname" class="mb-2 dark:text-gray-300"
+              <label for="firstName" class="mb-2 dark:text-gray-300"
                 >First Name</label
               >
               <input
                 type="text"
-                id="firstname"
-                formControlName="firstname"
+                id="firstName"
+                formControlName="firstName"
                 class="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                 [ngClass]="{
                   'border-gray-600 dark:bg-gray-700': name_edit,
                   'border-gray-300 dark:bg-gray-900': !name_edit,
                   'border-red-500':
-                    name_form.get('firstname')?.touched &&
-                    name_form.get('firstname')?.invalid
+                    name_form.get('firstName')?.touched &&
+                    name_form.get('firstName')?.invalid
                 }"
                 placeholder="First Name"
               />
               <div
                 *ngIf="
-                  name_form.get('firstname')?.touched &&
-                  name_form.get('firstname')?.invalid
+                  name_form.get('firstName')?.touched &&
+                  name_form.get('firstName')?.invalid
                 "
                 class="text-red-500 text-xs mt-1"
               >
-                <div *ngIf="name_form.get('firstname')?.hasError('required')">
+                <div *ngIf="name_form.get('firstName')?.hasError('required')">
                   *required
                 </div>
-                <div *ngIf="name_form.get('firstname')?.hasError('maxlength')">
+                <div *ngIf="name_form.get('firstName')?.hasError('maxlength')">
                   *length exceeds
                 </div>
-                <div *ngIf="name_form.get('firstname')?.hasError('pattern')">
+                <div *ngIf="name_form.get('firstName')?.hasError('pattern')">
                   *enter a valid firstname
                 </div>
               </div>
             </div>
             <div class="w-full mb-4 lg:mt-4">
-              <label for="lastname" class="dark:text-gray-300">Last Name</label>
+              <label for="lastName" class="dark:text-gray-300">Last Name</label>
               <input
                 type="text"
-                id="lastname"
-                formControlName="lastname"
+                id="lastName"
+                formControlName="lastName"
                 class="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                 [ngClass]="{
                   'border-gray-600 dark:bg-gray-700': name_edit,
                   'border-gray-300 dark:bg-gray-900': !name_edit,
                   'border-red-500':
-                    name_form.get('lastname')?.touched &&
-                    name_form.get('lastname')?.invalid
+                    name_form.get('lastName')?.touched &&
+                    name_form.get('lastName')?.invalid
                 }"
                 placeholder="Last Name"
               />
               <div
                 *ngIf="
-                  name_form.get('lastname')?.touched &&
-                  name_form.get('lastname')?.invalid
+                  name_form.get('lastName')?.touched &&
+                  name_form.get('lastName')?.invalid
                 "
                 class="text-red-500 text-xs mt-1"
               >
-                <div *ngIf="email_form.get('lastname')?.hasError('required')">
+                <div *ngIf="email_form.get('lastName')?.hasError('required')">
                   *required
                 </div>
-                <div *ngIf="email_form.get('lastname')?.hasError('maxlength')">
+                <div *ngIf="email_form.get('lastName')?.hasError('maxlength')">
                   *length exceeds
                 </div>
-                <div *ngIf="email_form.get('lastname')?.hasError('pattern')">
+                <div *ngIf="email_form.get('lastName')?.hasError('pattern')">
                   *enter a valid lastname
                 </div>
               </div>

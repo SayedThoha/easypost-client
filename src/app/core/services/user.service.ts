@@ -63,19 +63,19 @@ export class UserService {
     );
   }
 
-  PersonalBlogs(userId: string): Observable<blogResponse[]> {
+  personalBlogs(userId: string): Observable<blogResponse[]> {
     return this._http.get<blogResponse[]>(
-      `${this.apiUrl}/user/PersonalBlogs/${userId}`
+      `${this.apiUrl}/user/personalBlogs/${userId}`
     );
   }
 
-  AllBlogs(): Observable<blogResponse[]> {
-    return this._http.get<blogResponse[]>(`${this.apiUrl}/user/AllBlogs`);
+  allBlogs(): Observable<blogResponse[]> {
+    return this._http.get<blogResponse[]>(`${this.apiUrl}/user/allBlogs`);
   }
 
-  SingleBlog(blogId: string): Observable<blogResponse> {
+  singleBlog(blogId: string): Observable<blogResponse> {
     return this._http.get<blogResponse>(
-      `${this.apiUrl}/user/SingleBlog/${blogId}`
+      `${this.apiUrl}/user/singleBlog/${blogId}`
     );
   }
 
@@ -87,7 +87,7 @@ export class UserService {
   }
 
   refreshToken(data: any): Observable<any> {
-    return this._http.post(`${this.apiUrl}/auth/refresh-token`, data);
+    return this._http.post(`${this.apiUrl}/auth/refreshToken`, data);
   }
 
   userDetails(_id: string): Observable<userDetails> {
@@ -130,5 +130,4 @@ export class UserService {
       email
     );
   }
-
 }

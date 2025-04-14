@@ -164,7 +164,7 @@ export class EditBlogComponent implements OnInit {
   }
 
   getBlogDetails(blogId: string) {
-    this.userService.SingleBlog(blogId).subscribe({
+    this.userService.singleBlog(blogId).subscribe({
       next: (Response) => {
         this.blogDetails = Response;
 
