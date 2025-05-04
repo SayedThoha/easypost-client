@@ -22,7 +22,8 @@ export class UserService {
   constructor(private _http: HttpClient) {}
   private apiUrl: string = environment.apiUrl;
 
-  userregister(data: userRegister): Observable<httpResponseModel> {
+  userRegister(data: userRegister): Observable<httpResponseModel> {
+    console.log(data)
     return this._http.post<httpResponseModel>(
       `${this.apiUrl}/user/userRegister`,
       data
