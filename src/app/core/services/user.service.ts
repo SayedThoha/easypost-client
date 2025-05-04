@@ -23,7 +23,7 @@ export class UserService {
   private apiUrl: string = environment.apiUrl;
 
   userRegister(data: userRegister): Observable<httpResponseModel> {
-    console.log(data)
+    
     return this._http.post<httpResponseModel>(
       `${this.apiUrl}/user/userRegister`,
       data
