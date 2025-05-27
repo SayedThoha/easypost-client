@@ -24,7 +24,7 @@ export class AllBlogsComponent implements OnInit {
   blogs!: blogResponse[];
 
   addBlogs() {
-    this.router.navigate(['/create_blogs']);
+    this.router.navigate(['/create_blog']);
   }
 
   ngOnInit(): void {
